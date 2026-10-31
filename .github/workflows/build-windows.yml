@@ -3,6 +3,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: windows-latest
@@ -27,3 +29,11 @@ jobs:
         with:
           name: Viola-Setup
           path: dist/Viola-Setup-*.exe
+      - name: Log bei Fehler auf Branch buildlog speichern
+        if: failure()
+        shell: bash
+        run: |
+          mkdir ../lg && cp build.log ../lg/build.log && cd ../lg
+          git init -q && git checkout -q -b buildlog && git add build.log
+          git -c user.name=ci -c user.email=ci@example.com commit -q -m log
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" buildlog
