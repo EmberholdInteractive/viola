@@ -90,7 +90,7 @@
 .tutitem{padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted,#a79fc7)}
 .tutitem:hover{background:rgba(167,139,250,.12)} .tutitem.on{background:rgba(124,92,255,.28);color:#fff}
 .tutbody{overflow:auto;padding:18px 24px 20px} .tutbody h2{margin:0 0 8px} .tutbody h3{margin:16px 0 6px;font-size:14px;color:var(--accent,#a78bfa)}
-.tutintro{line-height:1.5} .tutbody li{margin:4px 0;line-height:1.45}
+.tutbody ol{padding-left:24px;margin:6px 0}.tutintro{line-height:1.5} .tutbody li{margin:4px 0;line-height:1.45}
 .tutex{margin-top:16px;padding:12px 14px;border:1px solid rgba(167,139,250,.45);border-radius:12px;background:rgba(124,92,255,.10)}
 .tutlab{margin-top:8px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted,#a79fc7)} .tutres{margin:4px 0 0;color:#c9f7d4}
 .tutbtns{display:flex;gap:8px;margin-top:18px;align-items:center;flex-wrap:wrap}`;
