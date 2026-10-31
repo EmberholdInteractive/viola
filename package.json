@@ -67,7 +67,9 @@
       "installerHeaderIcon": "assets/icon.ico",
       "runAfterFinish": true,
       "deleteAppDataOnUninstall": false,
-      "language": "1031"
+      "language": "1031",
+      "include": "build/installer.nsh",
+      "uninstallDisplayName": "Viola"
     }
   },
   "author": "Viola"
