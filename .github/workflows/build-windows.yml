@@ -20,7 +20,7 @@ jobs:
       - name: Installer bauen
         shell: bash
         run: |
-          npm run dist > build.log 2>&1 || { tail -n 25 build.log | while IFS= read -r l; do echo "::error::${l:0:240}"; done; exit 1; }
+          npm run dist > build.log 2>&1 || { (grep -i -m6 "error\|failed\|cannot" build.log; tail -n 4 build.log) | while IFS= read -r l; do echo "::error::${l:0:240}"; done; exit 1; }
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
       - uses: actions/upload-artifact@v4
