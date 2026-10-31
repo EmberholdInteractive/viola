@@ -17,7 +17,10 @@ jobs:
         run: |
           if not exist "node_modules\electron\dist\electron.exe" node node_modules\electron\install.js
           if not exist "node_modules\ffmpeg-static\ffmpeg.exe" node node_modules\ffmpeg-static\install.js
-      - run: npm run dist
+      - name: Installer bauen
+        shell: bash
+        run: |
+          npm run dist > build.log 2>&1 || { tail -n 25 build.log | while IFS= read -r l; do echo "::error::${l:0:240}"; done; exit 1; }
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
       - uses: actions/upload-artifact@v4
