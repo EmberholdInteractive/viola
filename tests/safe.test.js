@@ -1,0 +1,13 @@
+const fs = require('fs'), os = require('os'), path = require('path'), assert = require('assert');
+const ps = require('../src/engine/projectsafe');
+const ok = m => console.log('OK  ', m);
+const d = fs.mkdtempSync(path.join(os.tmpdir(), 'safe-')); const a = path.join(d, 'a'), b = path.join(d, 'neu', 'tief'); fs.mkdirSync(a); fs.mkdirSync(b, { recursive: true });
+fs.writeFileSync(path.join(a, 'x.jpg'), 'xx'); fs.writeFileSync(path.join(a, 'm.mp3'), 'mm');
+const p = { slides: [{ src: path.join(a, 'x.jpg') }, { type: 'title' }, { src: path.join(a, 'x.jpg') }], audio: [{ src: path.join(a, 'm.mp3') }] };
+assert.deepStrictEqual(ps.missing(p), []); ok('Nichts fehlt');
+fs.renameSync(path.join(a, 'x.jpg'), path.join(b, 'X.JPG')); assert.strictEqual(ps.missing(p).length, 1); ok('Fehlende Datei erkannt');
+const r = ps.relink(p, path.join(d, 'neu')); assert.deepStrictEqual(r, { fixed: 2, left: 0 }); assert.strictEqual(ps.missing(p).length, 0); ok('Neu verknüpft (Groß/Klein egal, Unterordner)');
+const c = ps.collect(p, path.join(d, 'pack'), 'Mein:Film'); assert.strictEqual(c.files, 2); assert(fs.existsSync(c.file)); const q = JSON.parse(fs.readFileSync(c.file, 'utf8')); assert(q.slides[0].src.startsWith(path.join(d, 'pack'))); assert.strictEqual(q.slides[0].src, q.slides[2].src); ok('Projekt gesammelt, Pfade ersetzt, Duplikate nur einmal kopiert');
+const ad = path.join(d, 'auto'); for (let i = 0; i < 5; i++) { ps.autosave(ad, { i }, 3); } assert.strictEqual(ps.snapshots(ad).length, 3); ok('Autosave behält nur die letzten 3');
+const pf = path.join(d, 'p.viola'); fs.writeFileSync(pf, '1'); ps.backupBeforeSave(pf); fs.writeFileSync(pf, '2'); ps.backupBeforeSave(pf); assert.strictEqual(fs.readFileSync(pf + '.bak1', 'utf8'), '2'); assert.strictEqual(fs.readFileSync(pf + '.bak2', 'utf8'), '1'); ok('Sicherungskopien .bak1/.bak2');
+console.log('\nPROJEKT-SICHERHEIT BESTANDEN');

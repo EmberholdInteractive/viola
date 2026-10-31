@@ -1,0 +1,15 @@
+const assert = require('assert');
+const T = require('../src/engine/tracks');
+const fx = require('../src/engine/fx');
+let n = 0; const ok = (name, fn) => { fn(); n++; console.log('ok', name); };
+const P = () => ({ name: 'T', slides: [{ type: 'photo', src: 'a.jpg', duration: 4 }, { type: 'photo', src: 'b.jpg', duration: 2, trimStart: 1 }], audio: [{ src: 'm.mp3' }], voice: [{ src: 'v.wav' }], overlays: [{ id: 1, track: 1 }, { id: 2, track: 2 }] });
+ok('ohne tracks unverändert', () => { const p = P(); assert.strictEqual(T.apply(p), p); });
+ok('V2 aus', () => { const p = P(); p.tracks = { V2: { hide: true } }; assert.deepStrictEqual(T.apply(p).overlays.map(o => o.id), [2]); });
+ok('V3 solo', () => { const p = P(); p.tracks = { V3: { solo: true } }; assert.deepStrictEqual(T.apply(p).overlays.map(o => o.id), [2]); });
+ok('A1 stumm', () => { const p = P(); p.tracks = { A1: { mute: true } }; const q = T.apply(p); assert.strictEqual(q.audio.length, 0); assert.strictEqual(q.voice.length, 1); });
+ok('A2 solo → Musik weg', () => { const p = P(); p.tracks = { A2: { solo: true } }; const q = T.apply(p); assert.strictEqual(q.audio.length, 0); assert.strictEqual(q.voice.length, 1); });
+ok('Original unverändert', () => { const p = P(); p.tracks = { A1: { mute: true } }; T.apply(p); assert.strictEqual(p.audio.length, 1); });
+ok('Marker sortiert', () => { const p = P(); T.addMarker(p, 5, 'b'); T.addMarker(p, 1, 'a'); assert.deepStrictEqual(p.markers.map(m => m.name), ['a', 'b']); });
+ok('EDL', () => { const e = T.toEdl(P(), 25); assert(e.includes('001  AX       V     C        00:00:00:00 00:00:04:00 00:00:00:00 00:00:04:00')); assert(e.includes('00:00:01:00 00:00:03:00 00:00:04:00 00:00:06:00')); });
+ok('LUT-Effekt', () => { const g = fx.buildGraph([fx.create('FX.COLOR.LUT', { file: 'C:\\luts\\a b.cube' })], 'in', 'out', { W: 640, H: 360, supported: x => x }, 'x'); assert(g.stmts.join(' ').includes('lut3d')); });
+console.log(n + ' Tests bestanden');

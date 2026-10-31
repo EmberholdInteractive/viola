@@ -1,0 +1,7 @@
+{
+  "id": "PLUG.BEISPIEL.FARBTON",
+  "name": "Beispiel: Farbton drehen",
+  "group": "Plugins",
+  "params": { "h": { "type": "float", "label": "Farbton", "def": 40, "min": -180, "max": 180, "step": 1, "unit": "°" } },
+  "filter": "hue=h={h}"
+}

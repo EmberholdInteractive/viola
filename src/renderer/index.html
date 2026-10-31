@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' viola: data:; media-src 'self' viola:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>Viola</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header id="head">
+    <div class="logo"><img src="logo.png" width="30" height="30" alt="" style="border-radius:8px">Viola</div>
+    <input id="projName" class="pname" value="Neues Projekt" spellcheck="false">
+    <div class="spacer"></div>
+    <button class="btn ghost" id="bNew">Neu</button>
+    <button class="btn ghost" id="bOpen">Öffnen</button>
+    <button class="btn ghost" id="bSave">Speichern</button>
+    <span class="sep"></span>
+    <button class="btn ghost" id="bUndo" title="Rückgängig (Strg+Z)">↶</button>
+    <button class="btn ghost" id="bRedo" title="Wiederholen (Strg+Y)">↷</button>
+    <button class="btn ghost" id="bLang" title="Sprache / Language">DE</button>
+    <button class="btn primary" id="bExport">Exportieren</button>
+  </header>
+  <nav id="rail"></nav>
+  <aside id="panel"></aside>
+  <main id="stage">
+    <div class="screen"><canvas id="cv" width="1280" height="720"></canvas><div id="screenInfo"></div></div>
+    <div class="transport">
+      <button class="btn ghost" id="tStart">⏮</button>
+      <button class="btn primary round" id="tPlay">▶</button>
+      <span id="tTime">0:00 / 0:00</span>
+      <input type="range" id="tSeek" min="0" max="1000" value="0">
+      <label class="chk"><input type="checkbox" id="tMusic" checked> Musik</label>
+    </div>
+  </main>
+  <aside id="inspector"></aside>
+  <section id="timeline">
+    <div class="tl-bar">
+      <span class="tl-title">Zeitleiste</span>
+      <span id="tlStats" class="muted"></span>
+      <div class="spacer"></div>
+      <button class="btn small" id="tlSplit" title="Video am Abspielkopf teilen (S)">Teilen</button>
+      <button class="btn small" id="tlDup" title="Duplizieren (Strg+D)">Duplizieren</button>
+      <button class="btn small danger" id="tlDel" title="Entfernen (Entf)">Entfernen</button>
+      <span class="sep"></span>
+      <label class="muted">Zoom</label><input type="range" id="tlZoom" min="2" max="120" value="22">
+    </div>
+    <div class="tl-scroll" id="tlScroll"><div class="tl-inner" id="tlInner">
+      <div class="tl-ruler" id="tlRuler"></div>
+      <div class="tl-row" id="rowSlides"></div>
+      <div class="tl-row music" id="rowMusic"></div>
+      <div class="playhead" id="playhead"></div>
+    </div></div>
+  </section>
+</div>
+<div id="toasts"></div>
+<audio id="aud"></audio>
+<script src="i18n-dict.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script src="tabs.js"></script>
+<script src="features.js"></script>
+<script src="features3.js"></script>
+<script src="features4.js"></script>
+<script src="features5.js"></script>
+<script src="features6.js"></script>
+<script src="features7.js"></script>
+<script src="features8.js"></script>
+<script src="features9.js"></script>
+<script src="features10.js"></script>
+<script src="features11.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="scene3d-core.js"></script>
+<script src="features12.js"></script>
+<script src="features13.js"></script>
+<script src="features2.js"></script>
+</body>
+</html>

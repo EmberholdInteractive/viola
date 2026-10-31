@@ -1,0 +1,26 @@
+name: Windows-Installer bauen
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Install-Skripte manuell ausfuehren
+        shell: cmd
+        run: |
+          if not exist "node_modules\electron\dist\electron.exe" node node_modules\electron\install.js
+          if not exist "node_modules\ffmpeg-static\ffmpeg.exe" node node_modules\ffmpeg-static\install.js
+      - run: npm run dist
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Viola-Setup
+          path: dist/Viola-Setup-*.exe

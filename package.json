@@ -1,0 +1,74 @@
+{
+  "name": "viola",
+  "productName": "Viola",
+  "version": "0.3.0",
+  "description": "Viola – Videostudio mit Auto-Collage, Beat-Sync, Untertiteln, Sprachbereinigung, Video2X-Upscaling und FFmpeg-Rendering",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node tests/engine.test.js && node tests/features.test.js && node tests/wave1.test.js && node tests/safe.test.js && node tests/overlays.test.js && node tests/lrc.test.js && node tests/analysis.test.js && node tests/tracks.test.js && node tests/wave3.test.js && node tests/wave4.test.js && node tests/wave5.test.js",
+    "dist": "electron-builder --win nsis",
+    "pack": "electron-builder --win dir"
+  },
+  "dependencies": {
+    "exifr": "^7.1.3",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "de.viola.studio",
+    "productName": "Viola",
+    "copyright": "Viola",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "tools/**/*",
+      "plugins/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**",
+      "node_modules/ffprobe-static/**",
+      "node_modules/sharp/**",
+      "tools/**",
+      "node_modules/@img/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "Viola-Setup-${version}.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Viola",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "language": "1031"
+    }
+  },
+  "author": "Viola"
+}
