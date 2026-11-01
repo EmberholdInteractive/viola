@@ -19,12 +19,16 @@ jobs:
         run: |
           if not exist "node_modules\electron\dist\electron.exe" node node_modules\electron\install.js
           if not exist "node_modules\ffmpeg-static\ffmpeg.exe" node node_modules\ffmpeg-static\install.js
-      - name: Installer bauen
+      - name: Version aus Laufnummer setzen
+        shell: bash
+        run: npm version 0.3.${{ github.run_number }} --no-git-tag-version --allow-same-version
+      - name: Installer bauen und als Release veröffentlichen
         shell: bash
         run: |
-          npm run dist > build.log 2>&1 || { (grep -i -m6 "error\|failed\|cannot" build.log; tail -n 4 build.log) | while IFS= read -r l; do echo "::error::${l:0:240}"; done; exit 1; }
+          npx electron-builder --win nsis --publish always > build.log 2>&1 || { (grep -i -m6 "error\|failed\|cannot" build.log; tail -n 4 build.log) | while IFS= read -r l; do echo "::error::${l:0:240}"; done; exit 1; }
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
+          GH_TOKEN: ${{ github.token }}
       - uses: actions/upload-artifact@v4
         with:
           name: Viola-Setup

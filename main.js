@@ -39,10 +39,31 @@ app.whenReady().then(() => {
     const p = decodeURIComponent(req.url.slice('viola://media/'.length));
     return net.fetch(pathToFileURL(p).toString(), { headers: req.headers });
   });
-  createWindow();
+  createWindow(); setupUpdater();
   app.on('activate', () => { if (!BrowserWindow.getAllWindows().length) createWindow(); });
 });
 app.on('window-all-closed', () => { jobs.forEach(j => j.abort()); app.quit(); });
+
+
+// ---------- Automatische Updates (GitHub Releases) ----------
+let updState = { state: 'idle' };
+function updSend(o) { updState = o; send({ type: 'update', ...o }); }
+function setupUpdater() {
+  if (!app.isPackaged) return;
+  let au; try { au = require('electron-updater').autoUpdater; } catch (_) { return; }
+  au.autoDownload = true; au.autoInstallOnAppQuit = true; au.allowPrerelease = false;
+  au.on('checking-for-update', () => updSend({ state: 'checking' }));
+  au.on('update-available', i => updSend({ state: 'downloading', version: i.version, percent: 0 }));
+  au.on('update-not-available', () => updSend({ state: 'none' }));
+  au.on('download-progress', p => updSend({ state: 'downloading', version: updState.version, percent: Math.round(p.percent || 0) }));
+  au.on('update-downloaded', i => updSend({ state: 'ready', version: i.version }));
+  au.on('error', e => updSend({ state: 'error', message: String(e && e.message || e).slice(0, 160) }));
+  const check = () => { au.checkForUpdates().catch(() => {}); };
+  setTimeout(check, 8000); setInterval(check, 4 * 3600 * 1000);
+  ipcMain.handle('update:check', () => { check(); return true; });
+  ipcMain.handle('update:install', () => { au.quitAndInstall(true, true); return true; });
+}
+ipcMain.handle('update:state', () => Object.assign({ version: app.getVersion(), packaged: app.isPackaged }, updState));
 
 const H = (name, fn) => ipcMain.handle(name, async (_e, ...a) => fn(...a));
 

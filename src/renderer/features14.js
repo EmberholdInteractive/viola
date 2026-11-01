@@ -72,10 +72,10 @@
       const ex = c.ex;
       body.append(el('h2', {}, (cur + 1) + '. ' + c.t), el('p', { class: 'tutintro' }, c.intro),
         el('h3', {}, 'So geht’s'), el('ol', {}, ...c.steps.map(s => el('li', {}, s))),
-        el('div', { class: 'tutex' }, el('b', {}, 'Beispiel: ' + ex.goal), el('div', { class: 'tutlab' }, 'Mach das:'), el('ol', {}, ...ex.do.map(s => el('li', {}, s))), el('div', { class: 'tutlab' }, 'Das kommt raus:'), el('p', { class: 'tutres' }, ex.res)),
+        el('div', { class: 'tutex' }, el('b', {}, el('span', {}, 'Beispiel:'), ' ', el('span', {}, ex.goal)), el('div', { class: 'tutlab' }, 'Mach das:'), el('ol', {}, ...ex.do.map(s => el('li', {}, s))), el('div', { class: 'tutlab' }, 'Das kommt raus:'), el('p', { class: 'tutres' }, ex.res)),
         el('div', { class: 'tutbtns' },
           cur === 0 ? btn('Demo-Projekt einfügen', demo) : null,
-          btn('Seite „' + c.p + '“ öffnen', () => { close(); page(c.p)(); }),
+          btn('Seite öffnen: ' + c.p, () => { close(); page(c.p)(); }),
           el('span', { style: { flex: 1 } }),
           btn('← Zurück', () => { if (cur > 0) { cur--; draw(); } }), btn(cur === CH.length - 1 ? 'Fertig' : 'Weiter →', () => { if (cur < CH.length - 1) { cur++; draw(); } else close(); }), btn('Schließen', close)));
       body.scrollTop = 0;

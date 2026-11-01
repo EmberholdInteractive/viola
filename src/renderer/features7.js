@@ -7,8 +7,8 @@
   const M = [
     ['Datei', [['Neues Projekt', 'Strg+N', click('bNew')], ['Öffnen …', 'Strg+O', click('bOpen')], ['Speichern', 'Strg+S', click('bSave')], ['Speichern unter …', 'Strg+Umschalt+S', () => saveProject(true)], null, ['Exportieren …', '', () => App.showTab('export')]]],
     ['Bearbeiten', [['Rückgängig', 'Strg+Z', click('bUndo')], ['Wiederholen', 'Strg+Y', click('bRedo')], null, ['Teilen', 'S', click('tlSplit')], ['Duplizieren', 'Strg+D', click('tlDup')], ['Entfernen', 'Entf', click('tlDel')]]],
-    ['Ansicht', [['Medien', '', () => App.showTab('media')], ['Effekte & Zeitleiste', '', () => { S().selected.clear(); renderAll(); }], ['Lyrics', '', () => App.showTab('lyrics')], null, ['Sprache: Deutsch', '', () => I18n.set('de')], ['Language: English', '', () => I18n.set('en')]]],
-    ['Hilfe', [['Tutorial', 'F1', () => window.Studio3 && Studio3.tutorial && Studio3.tutorial()], null, ['Entwicklerwerkzeuge', 'F12', () => App.api.invoke('shell:devtools')], ['Über Viola', '', () => toast('Viola 0.3 – Videostudio mit Amethyst-Design')]]],
+    ['Ansicht', [['Medien', '', () => App.showTab('media')], ['Effekte & Zeitleiste', '', () => { S().selected.clear(); renderAll(); }], ['Lyrics', '', () => App.showTab('lyrics')], null, ['Sprache / Language …', '', () => I18n.menu()]]],
+    ['Hilfe', [['Tutorial', 'F1', () => window.Studio3 && Studio3.tutorial && Studio3.tutorial()], ['Nach Updates suchen', '', () => window.Studio3 && Studio3.checkUpdate && Studio3.checkUpdate()], null, ['Entwicklerwerkzeuge', 'F12', () => App.api.invoke('shell:devtools')], ['Über Viola', '', () => toast('Viola ' + (window.__violaVersion || '0.3') + ' – Videostudio mit Amethyst-Design')]]],
   ];
   M.forEach(([name, items]) => {
     const mi = el('div', { class: 'mi' }, el('div', { class: 'mt' }, name)); const dd = el('div', { class: 'dd' });
