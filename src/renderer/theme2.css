@@ -138,3 +138,11 @@ html{font-family:"Inter","Segoe UI","Microsoft YaHei UI","Yu Gothic UI","Malgun 
 #updbar{display:none;align-items:center;gap:8px;padding:2px 12px;border-radius:999px;border:1px solid var(--line2);background:rgba(94,234,212,.12);color:var(--teal);font-size:12px;white-space:nowrap;flex:0 0 auto}
 #updbar.on{display:inline-flex}#updbar button{min-height:22px;padding:1px 10px;border-radius:999px;border:1px solid var(--teal);background:transparent;color:var(--teal);cursor:pointer}
 #updbar button:hover{background:rgba(94,234,212,.2)}
+
+/* Dropdown-Menüs: ganz nach vorn, scrollbar */
+#head{position:relative;z-index:500}
+.menubar .dd{z-index:1000;max-height:calc(100vh - 70px);overflow-y:auto;overscroll-behavior:contain}
+#langmenu{z-index:2000;max-height:calc(100vh - 24px);overflow-y:auto;overscroll-behavior:contain}
+#pal,.modal{z-index:1500}
+#pal .pbox,.pbox{max-height:calc(100vh - 80px);overflow-y:auto}
+.welcome{width:min(460px,92vw)}.welcome p{line-height:1.5;margin:8px 0}

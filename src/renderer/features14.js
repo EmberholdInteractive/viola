@@ -98,5 +98,15 @@
 
   window.Studio3 = Object.assign(window.Studio3 || {}, { tutorial: open, TUTORIAL: CH });
   document.addEventListener('keydown', e => { if (e.key === 'F1') { e.preventDefault(); open(); } });
-  if (!LS.get('viola.tut.seen')) { LS.set('viola.tut.seen', '1'); setTimeout(() => toast('Neu hier? Drück F1 für das Tutorial'), 2500); }
+  // Beim allerersten Start fragen, ob das Tutorial laufen soll
+  function welcome() {
+    LS.set('viola.tut.welcome', '1');
+    const m = document.createElement('div'); m.className = 'modal'; m.style.zIndex = 300;
+    const close = () => m.remove();
+    const box = el('div', { class: 'mbox welcome' }, el('h2', {}, 'Willkommen bei Viola!'), el('p', {}, 'Möchtest du eine kurze Einführung? Das Tutorial zeigt Schritt für Schritt, wie alles funktioniert, mit Beispielen zum Nachmachen.'), el('p', { class: 'muted' }, 'Du findest es jederzeit unter Hilfe → Tutorial oder mit F1.'),
+      el('div', { class: 'tutbtns' }, el('span', { style: { flex: 1 } }), btn('Nein, später', close), btn('Tutorial starten', () => { close(); open(0); }, 'primary')));
+    m.append(box); document.body.append(m);
+  }
+  if (!LS.get('viola.tut.welcome')) setTimeout(welcome, 1800);
+  window.Studio3.welcome = welcome;
 })();
