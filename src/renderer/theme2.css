@@ -1,0 +1,104 @@
+/* Viola – Design "Aurora": neue Farben, Glas-Panels, einheitliche Abstände; Text bricht um oder wird gekürzt statt überzustehen */
+:root{
+  --bg:#06050c; --bg2:#0a0813; --panel:rgba(18,14,32,.86); --panel2:#1b1530; --line:rgba(167,139,250,.16); --line2:rgba(167,139,250,.30);
+  --text:#f1eefc; --muted:#a59cc4; --accent:#b49bff; --accent2:#8b5cf6; --accent3:#e4d9ff; --ok:#4ade80; --warn:#fbbf24; --bad:#fb7185; --teal:#5eead4;
+  --r:14px; --glow:0 0 0 1px rgba(167,139,250,.4),0 6px 22px rgba(139,92,246,.30);
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+html,body{font:13px/1.45 "Inter","Segoe UI",system-ui,sans-serif;letter-spacing:.005em;-webkit-font-smoothing:antialiased}
+#app{background:
+  radial-gradient(900px 500px at 8% -10%,rgba(139,92,246,.20),transparent 60%),
+  radial-gradient(800px 500px at 100% 110%,rgba(236,72,153,.12),transparent 60%),
+  var(--bg)}
+
+/* --- Grundregel: nichts ragt über seinen Block hinaus --- */
+#app *{min-width:0}
+button,.btn{white-space:normal;overflow-wrap:anywhere;word-break:normal;hyphens:auto;line-height:1.2;text-align:center;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;max-width:100%;min-height:32px}
+h1,h2,h3,label,.muted,.tl-title,.lbl,.ttl,.tag,.empty,summary,.fxtile,.ph b{overflow-wrap:anywhere}
+.row>label{flex:0 1 46%;max-width:50%;line-height:1.25;overflow-wrap:break-word;hyphens:auto}
+.row{flex-wrap:wrap}
+.row>button,.row>.btn{flex:1 1 120px}
+select,input[type=text],input[type=number],textarea{min-height:32px;text-overflow:ellipsis}
+.ptabs,.tabs,.tl-bar{flex-wrap:wrap}
+.ptabs{overflow-x:auto;scrollbar-width:none}.ptabs button{flex:0 0 auto;white-space:nowrap}
+.blk,.blk .lbl,.blk .ttl,.thumb .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tree summary,.thumb .ttl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fxtile{overflow:hidden}
+
+/* --- Kopfzeile --- */
+#head{background:linear-gradient(180deg,rgba(30,22,54,.9),rgba(14,10,26,.9));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);gap:8px}
+.logo{font-size:18px}.pname{width:clamp(120px,18vw,260px);text-overflow:ellipsis}
+.menubar .mt{padding:6px 9px;border-radius:8px;color:var(--muted);white-space:nowrap}.menubar .mi.open .mt,.menubar .mt:hover{color:#fff;background:rgba(167,139,250,.14)}
+.menubar .dd{background:#150f26;border:1px solid var(--line2);border-radius:12px;box-shadow:var(--shadow);padding:6px;min-width:220px}
+.menubar .it{border-radius:8px;padding:7px 10px;gap:18px}.menubar .it:hover{background:rgba(139,92,246,.22)}
+#pagebar{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px;flex:0 1 auto}
+#pagebar button{padding:5px 10px;border-radius:9px;min-height:0;white-space:nowrap;font-weight:500}
+#pagebar button.on{background:linear-gradient(135deg,#8b5cf6,#d946ef);box-shadow:0 4px 14px rgba(168,85,247,.45)}
+
+/* --- Buttons & Felder --- */
+.btn{border:1px solid var(--line2);background:linear-gradient(180deg,#221a3a,#190f2c);border-radius:10px;padding:6px 12px;font-weight:500;box-shadow:0 1px 0 rgba(255,255,255,.04) inset}
+.btn:hover{border-color:var(--accent);background:linear-gradient(180deg,#2c2150,#1f1538)}
+.btn.primary{background:linear-gradient(135deg,#8b5cf6,#d946ef);border-color:rgba(255,255,255,.28);box-shadow:0 6px 18px rgba(168,85,247,.38)}
+.btn.small{min-height:26px;padding:3px 9px;font-size:12px}
+.btn.ghost{background:transparent;box-shadow:none}
+input[type=text],input[type=number],select,textarea{background:rgba(5,3,12,.7);border:1px solid var(--line);border-radius:10px}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.25)}
+.card{background:linear-gradient(180deg,rgba(32,24,58,.7),rgba(22,16,40,.7));border:1px solid var(--line);border-radius:12px}
+
+/* --- Leiste mit Werkzeugen --- */
+#rail{background:rgba(14,10,26,.8);border:1px solid var(--line);border-radius:var(--r);gap:4px;overflow-x:auto;scrollbar-width:none}
+.rail-btn{border-radius:12px;font-size:11px;min-width:64px;padding:7px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rail-btn.on{background:linear-gradient(160deg,rgba(139,92,246,.55),rgba(217,70,239,.35));border-color:rgba(255,255,255,.25)}
+
+/* --- Panels / Docks --- */
+#panel,#inspector,#colorp,#fxp,#docks .dock,#stage .transport,#timeline{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+#docks .dock{border-color:var(--line2);box-shadow:var(--shadow)}
+#docks .dock:hover{border-color:var(--accent)}
+#panel h2,#inspector h2,.ph b{font-size:13.5px;font-weight:650;color:var(--accent3);letter-spacing:.2px}
+#panel h3{font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.ph{padding:8px 12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),transparent);gap:8px;flex-wrap:wrap;align-items:center}
+.ph .muted{font-size:12px}
+
+/* --- Vorschau und Steuerung --- */
+.screen{background:#04030a;border:1px solid var(--line);border-radius:var(--r);box-shadow:inset 0 0 80px rgba(0,0,0,.6),var(--shadow)}
+.transport{gap:10px}
+#tTime{color:var(--teal);font-weight:600}
+
+/* --- Zeitleiste --- */
+.tl-bar{padding:8px 12px;gap:6px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),transparent)}
+.tl-title{font-weight:650}
+.blk{border-radius:8px;border:1px solid rgba(255,255,255,.18);box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.blk:hover{border-color:#fff}
+.playhead{background:var(--teal);box-shadow:0 0 10px var(--teal)}
+.tl-row{border-bottom:1px solid rgba(167,139,250,.08)}
+
+/* --- Dialoge, Hinweise --- */
+.modal{background:rgba(3,2,8,.72);backdrop-filter:blur(6px)}
+.mbox{background:linear-gradient(180deg,#1a1330,#110b20);border:1px solid var(--line2);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.6);max-height:92vh;overflow:auto}
+#toasts{top:auto;bottom:16px;right:50%;transform:translateX(50%);align-items:center;pointer-events:none}
+.toast{background:rgba(26,19,48,.96);border:1px solid var(--line2);box-shadow:var(--shadow);font-size:12.5px;padding:8px 14px;border-radius:999px}
+
+/* --- Tutorial --- */
+.tutitem{white-space:normal;overflow-wrap:anywhere}
+.tutex{background:linear-gradient(135deg,rgba(139,92,246,.16),rgba(217,70,239,.08))}
+
+/* --- Schmale Fenster --- */
+@media (max-width:1500px){
+  .logo span,.logo b{display:none}
+  #pagebar button{padding:5px 8px;font-size:12px}
+  .menubar .mt{padding:6px 6px}
+}
+@media (max-width:1280px){.menubar{display:none}}
+.menubar,.menubar .mi{flex:0 0 auto}.menubar .mt{min-width:max-content}
+.tc{min-width:max-content}
+
+/* Kompakte Leisten: einzeilig, nie mitten im Wort umbrechen */
+#head .btn,#head button,.transport *,.tl-bar .btn,.tl-bar *,#pagebar button,.rail-btn,.ptabs button,.tabs *,.menubar *{white-space:nowrap;overflow-wrap:normal;hyphens:manual}
+#head .btn{flex:0 0 auto}#pagebar,#pagebar button{flex:0 0 auto}
+.pname{flex:1 1 120px;min-width:90px}
+.transport{flex-wrap:nowrap}.transport input[type=range]{flex:1 1 80px;min-width:60px}
+.tl-bar{row-gap:6px}
+.pname{flex:1 1 150px;min-width:130px}
+#timeline button:not(.btn),#tlInner button:not(.btn){min-height:0}
+#timeline .btn{min-height:28px}
