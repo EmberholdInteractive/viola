@@ -150,7 +150,7 @@ function drawSlide(s, prog, alpha) {
 function drawPreview() {
   cx.fillStyle = '#000'; cx.fillRect(0, 0, cv.width, cv.height);
   const { L, total, F } = layout(); const t = Math.min(S().t, total);
-  if (!L.length) { cx.fillStyle = '#6d5a94'; cx.font = '34px Segoe UI, Arial'; cx.textAlign = 'center'; cx.fillText('Füge links Fotos, Videos oder Titel hinzu', cv.width / 2, cv.height / 2); $('#screenInfo').textContent = ''; return; }
+  if (!L.length) { cx.fillStyle = '#6d5a94'; cx.font = '34px Segoe UI, Arial'; cx.textAlign = 'center'; cx.fillText(window.I18n ? I18n.t('Füge links Fotos, Videos oder Titel hinzu') : 'Füge links Fotos, Videos oder Titel hinzu', cv.width / 2, cv.height / 2); $('#screenInfo').textContent = ''; return; }
   const cur = L.filter(x => x.start <= t + 1e-6 && t < x.end).pop() || L[L.length - 1];
   if (cur.i > 0 && t < cur.start + F) { const pv = L[cur.i - 1]; drawSlide(pv.s, Math.min(1, (t - pv.start) / pv.d), 1); drawSlide(cur.s, 0, (t - cur.start) / F); }
   else drawSlide(cur.s, Math.min(1, (t - cur.start) / cur.d), 1);

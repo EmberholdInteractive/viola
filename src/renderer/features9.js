@@ -109,7 +109,7 @@
       try { const w = 160, h = 90, t = document.createElement('canvas'); t.width = w; t.height = h; const tg = t.getContext('2d'); tg.drawImage(cv, 0, 0, w, h); const d = tg.getImageData(0, 0, w, h).data; const bins = [new Array(64).fill(0), new Array(64).fill(0), new Array(64).fill(0)];
         for (let i = 0; i < d.length; i += 4) { bins[0][d[i] >> 2]++; bins[1][d[i + 1] >> 2]++; bins[2][d[i + 2] >> 2]++; } const mx = Math.max(1, ...bins.flat().map(v => v)) * 0.6;
         ['rgba(255,80,80,.55)', 'rgba(80,255,80,.45)', 'rgba(90,140,255,.55)'].forEach((col, k) => { g.fillStyle = col; bins[k].forEach((v, i) => { const bh = Math.min(1, v / mx) * c.height; g.fillRect(i * c.width / 64, c.height - bh, c.width / 64 + 0.5, bh); }); });
-      } catch (e) { g.fillStyle = '#6d5a94'; g.font = '11px sans-serif'; g.fillText('Histogramm nicht verfügbar', 8, 28); } });
+      } catch (e) { g.fillStyle = '#6d5a94'; g.font = '11px sans-serif'; g.fillText(window.I18n ? I18n.t('Histogramm nicht verfügbar') : 'Histogramm nicht verfügbar', 8, 28); } });
   }
   function renderColor() {
     const box = $$('#colorp'); if (!box) return; box.replaceChildren();

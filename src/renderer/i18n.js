@@ -58,7 +58,7 @@
   }
   window.I18n = {
     LANGS, get lang() { return lang; }, t: tr, menu,
-    set(l) { lang = have(l) ? l : 'en'; try { localStorage.setItem('viola.lang', lang); } catch {} apply(); },
+    set(l) { lang = have(l) ? l : 'en'; try { localStorage.setItem('viola.lang', lang); } catch {} apply(); try { if (typeof drawPreview === 'function') drawPreview(); } catch {} },
     toggle() { this.set(lang === 'de' ? 'en' : 'de'); }
   };
   // Dialogtexte (confirm/alert) und Toasts laufen über window.confirm/alert bzw. DOM
